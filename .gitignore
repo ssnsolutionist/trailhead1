@@ -5,8 +5,8 @@
 # Salesforce cache
 .sfdx/
 .localdevserver/
+# Because Trailhead says so :)
 .vscode
-
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
 
@@ -34,3 +34,5 @@ Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
+~*
+Working Copy of*
