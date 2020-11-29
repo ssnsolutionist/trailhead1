@@ -259,3 +259,13 @@ sfdx force:source:retrieve -u scottn@logic2020.rfp.lausd -n PACKAGENAMES (A comm
 sfdx force:mdapi:retrieve -r ../ -p L20Test01 -u scottn@logic2020.rfp.lausd
 
 sfdx force:alias:set dxbase=scottn@lausd.poc.dxbase
+
+sfdx force:mdapi:retrieve -r ../ -u scottn@lausd.poc -k manifests/SandboxAdminEmailPackage.xml
+
+sfdx force:auth:web:login -d -a LE-DevHub
+sfdx force:mdapi:convert -r ../unpackaged -d sandbox-admin-email-with-community
+
+
+sfdx force:auth:web:login --setalias L2-PoC-Prd --instanceurl https://logic2020-fsl-demo.my.salesforce.com
+
+scratch org: 00D1100000C5smxEAB, username: test-2tvgoqoo1tvo@example.com
