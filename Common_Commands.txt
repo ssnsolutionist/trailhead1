@@ -1,25 +1,27 @@
-UPDATE THIS FROM "T:\vm_share\sfdx\logic-expeditions\README.md"
+Work in Progress (WiP)
+
+TODO: ORGANIZE THIS!
+
 ***Online documentation:
 https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force.htm
 
 ***Get updates based on package.xml
-sfdx force:mdapi:retrieve -r ../ -u scottn@logic2020.lausd.hd.poc -k manifest/package.xml
+sfdx force:mdapi:retrieve -r ../ -u [USERNAME] -k manifest/package.xml
 
 Unzip then upack with:
 sfdx force:mdapi:convert -r ../unpackaged -d force-app
-
-
-***List ORGS with Aliases
-sfdx force:org:list
-
-***List ORGS by Type
-sfdx force:config:list
 
 ***Add New Alias for Org
 sfdx force:auth:web:login --setalias [ALIAS] --instanceurl [MY DOMAIN URL]
 
 ***Set Alias
 sfdx force:alias:set [ALIAS]=[USERNAME]
+
+***List ORGS with Aliases
+sfdx force:org:list
+
+***List ORGS by Type
+sfdx force:config:list
 
 ***Remove Alias
 Go to the config list path:
@@ -30,14 +32,11 @@ https://salesforce.stackexchange.com/questions/181780/removing-old-hub-org-or-no
 
 ***Set Alias as default hub
 sfdx force:auth:web:login -d -a [ALIAS]
-sfdx force:auth:web:login -d -a TH-ORG01
 sfdx force:auth:web:login -d -a [ALIAS] -r [MYDOMAINURL]
 
 ***Set Alias as default user
 sfdx force:auth:web:login -s -a [ALIAS]
-sfdx force:auth:web:login -s -a TH-ORG01
 sfdx force:auth:web:login -s -a [ALIAS] -r [MYDOMAINURL]
-
 
 ***Log Out
 sfdx force:auth:logout -u [USER]
@@ -48,7 +47,6 @@ sfdx force:auth:logout --all
 ***Create Scratch Org (make sure current default is org you want scratch from and project-scratch-def.json is configured properly)
 sfdx force:org:create -f config/project-scratch-def.json --durationdays 30 --setalias [ALIAS]
 
-
 ***Generate password for scratch org
 sfdx force:user:password:generate -u [SCRATCH ORG USERNAME]
 
@@ -58,18 +56,18 @@ sfdx force:org:open -u [ALIAS]
 $$$$$$ Package Export and Import
 
 ***Export a package from an org as Step 1
-sfdx force:mdapi:retrieve -r ../ -p <packageName> -u scottn@logic2020.rfp.lausd 
+sfdx force:mdapi:retrieve -r ../ -p <packageName> -u [USERNAME] 
+or
+sfdx force:mdapi:retrieve -r ../ -u [USERNAME] -k manifest/package.xml
 
 ***Unzip the package using relative path
 unzip ../unpackaged.zip -d ../
 
 ***Convert downloaded unmanaged package to source as Step 2
 sfdx force:mdapi:convert -r <PATH_TO_UNZIPPED_PACKAGE> -d <PATH_TO_[/force-app/main/default]>
-sfdx force:mdapi:convert -r ../LAUSD_Scratch001 -d force-app/main/default
 
 ***Deploy to org as Step 3
 sfdx force:source:deploy -u <USERNAME> -x <PATH-TO-PACKAGE.XML>
-sfdx force:source:deploy -u scottn@logic2020.rfp.lausd -x ../LAUSD_Scratch001/package.xml
 $$ Deploy ALL from project with:
 sfdx force:source:deploy -u <USERNAME> -p force-app/main/default
 
@@ -78,17 +76,12 @@ Package Export and Import $$$$$$
 ***Other deploy syntaxes [NEED TO EXPERMINT WITH]
 sfdx force:source:deploy --sourcepath [RELATIVE_PATH]
 sfdx force:source:deploy --sourcepath force-app/main/default/triggers
-
-sfdx force:source:deploy --metadata  -u devcourse@udemy.com -k manifest/update.package.xml
-
-sfdx force:mdapi:retrieve -r ../ -u test-ijmynurtd9tp@example.com -k manifest/package.xml
-
+sfdx force:source:deploy --metadata  -u [USERNAME] -k manifest/update.package.xml
 
 ***Retrieve updates (non-scratch org)
-sfdx force:source:retrieve -u scottn@logic2020.rfp.lausd -x manifest/package.xml --verbose
+sfdx force:source:retrieve -u [USERNAME] -x manifest/package.xml --verbose
 or 
-sfdx force:source:retrieve -u scottn@logic2020.rfp.lausd -n PACKAGENAMES (A comma-separated list of package names to retrieve.)
-
+sfdx force:source:retrieve -u [USERNAME] -n PACKAGENAMES (A comma-separated list of package names to retrieve.)
 
 ***Package and publish
 See https://trailhead.salesforce.com/content/learn/modules/org-development-model/test-and-deploy-changes
@@ -101,7 +94,6 @@ sfdx force:source:push -u [ORG USERNAME FROM THE sfdx force:org:list]
 
 ***Pull from Org to VS Code Project
 sfdx force:source:pull -u [ORG USERNAME FROM THE sfdx force:org:list]
-
 
 ***Mark ORG for removal [DELETES FROM SALESFORCE, NOT JUST CURRENT LIST!!!]
 sfdx force:org:delete -u [SCRATCH ORG USERNAME]
@@ -122,150 +114,37 @@ sfdx force:package:version:create -p [PACKAGE_NAME] -d force-app -k [INSTALLATIO
 sfdx force:package:version:promote -p [PACKAGE ID or ALIAS]
 
 ***Create install url for package
-
 packaging/installPackage.apexp?p0=<04t id>
 
 ex:
 packaging/installPackage.apexp?p0=04t4p0000006QooAAE
 
-
 **********Current Scratch Org
 Use standard scratch org alias for reuse
+sfdx force:auth:web:login -d -a [ALIAS]
 sfdx force:alias:set scratch01=[SCRATCH_ORG_USERNAME]
 sfdx force:user:password:generate -u [SCRATCH ORG USERNAME]
 sfdx force:org:open -u scratch01
 sfdx force:source:push -u scratch01
 
-DEPLOY TESTING 2
-https://fun-inspiration-7710.lightning.force.com
-test-mtlsg7jzyhl2@example.com
-T08W#089h2
-
-sfdx force:alias:set scratch03=test-mtlsg7jzyhl2@example.com
-
-DEPLOY TESTING
-https://drive-data-5121.lightning.force.com
-test-ijmynurtd9tp@example.com
-37s[O*e4$h
-
-Packages
-https://test.salesforce.com/packaging/installPackage.apexp?p0=04tc0000000Ag2w&isdtp=p1
-https://test.salesforce.com/packaging/installPackage.apexp?p0=04t17000000Gyo5&isdtp=p1
-
-FUNCTIONAL
-https://customization-saas-2721.lightning.force.com
-test-smg4vn00x6y8@example.com
-14r&r[[9#H
-
-SECURITY HARDENING
-https://platform-java-4953.cs41.my.salesforce.com
-test-ayohptwnybgd@example.com
-1e0oFy%)Sd
-HARDscratch01=test-ayohptwnybgd@example.com
+############# String build area and examples. Use this to write your frequently used commands
 
 
-https://test.salesforce.com/packaging/installPackage.apexp?p0=04t17000000Fq4s&isdtp=p1
 
-############# String build area and examples
-sfdx force:user:password:generate -u test-mtlsg7jzyhl2@example.com
-sfdx force:alias:set scratch02=test-ijmynurtd9tp@example.com
-sfdx force:user:password:generate -u test-aqfvypjxn1js@example.com
-sfdx force:mdapi:convert -r /media/sf_vm_share/sfdx/frp_a92/FRP_Maps -d .
+############# END String build area 
 
-sfdx force:mdapi:retrieve -r metadata -u test-ijmynurtd9tp@example.com -k manifest/package.xml
+###MISC garabage and TODO
 
-sfdx force:auth:web:login --setalias pl-dev --instanceurl https://pge-publicsafety--pldev.cs22.my.salesforce.com/
-sfdx force:mdapi:convert -r /media/sf_vm_share/sfdx/frp_a92/Scratch_Org_Objects -d .
-sfdx force:auth:web:login -d -a SN-TEMP-TEST-SCRATCH
-sfdx force:alias:set frp-prod=pladmin@primitivelogic.com
-sfdx force:auth:web:login -d -a [ALIAS]
-sfdx force:alias:set CURRENT-SN-FRP-SCRATCH=test-vjxinc93cvcp@example.com
-sfdx force:package:create --name testFRPmaps --description "Testing the process" --packagetype Unlocked --path force-app --nonamespace 
-sfdx force:package:version:create -p testFRPmaps -d force-app -k p41mItiv3706ic --wait 10
-sfdx force:package:create --name testExistingObjects --description "Same stuff different package" --packagetype Unlocked --path force-app --nonamespace
-sfdx force:package:version:create -p testExistingObjects -d force-app -k p41mItiv3706ic --wait 10
-sfdx force:auth:web:login -d -a SN-FRP-DEV-ED
-sfdx force:source:push -u test-broq9usuhewg@example.com
+**** BEGIN Download and Upload Lifecycle (uses PowerShell syntax)
+sfdx force:mdapi:retrieve -r ../ -u [USER_NAME] -k manifest/package.xml
+mv ../unpackaged.zip ../[PROJECTNAME-V##].zip 
+Expand-Archive ../[PROJECTNAME-V##].zip -d ../
+mv  ../unpackaged ../[PROJECTNAME-_V##]
+sfdx force:mdapi:convert -r ../[PROJECTNAME-_V##] -d force-app
 
+####WITHOUT RENAMING
+Expand-Archive ../unpackaged.zip -d ../
+sfdx force:mdapi:convert -r ../unpackaged -d force-app
 
-sfdx force:package:create --name testFRPmaps --description "Unlocked Package for FRP mapls" --packagetype Unlocked --path force-app --nonamespace 
-
-
-***MISC garabage and TODO
-sfdx force:package:install --wait 10 --publishwait 10 --package GIFter@1.0.0-1 -k test1234 --noprompt
-
-sfdx force:user:permset:assign -n GIFter_Verify
-
-sfdx force:package:install -u solutionist --wait 10 --package GIFter@1.0.0-1 -k test1234 --noprompt
-
-sfdx force:package:install -u MyTP --wait 10 --package GIFter@1.1.0-1 -k test1234 --noprompt
-
-sfdx force:package:version:create -p GIFter -d force-app -k test1234 --wait 10 -v DevHub
-
-sfdx force:package:version:create -u GIFter -p GIFter -d force-app -k test1234 --wait 10
-
-sfdx force:org:open -u test-wo9lmjsfacmw@example.com
-
-sfdx force:user:password:generate -u GIFter
-
-sfdx force:package:install -u solutionist --wait 10 --package GIFter@1.1.0-1 -k test1234 --noprompt
-
-https://login.salesforce.com/packaging/installPackage.apexp?p0=04t17000000Fq4n
-
-sfdx force:auth:web:login --setalias LAUSD-PoC-Main --instanceurl https://logic2020-lausd-demo2-dev-ed.my.salesforce.com
-sfdx force:auth:web:login -d -a TH-ORG01
-sfdx force:config:set defaultusername=devcourse@udemy.com
-
-  ALIAS            USERNAME                            ORG ID              CONNECTED STATUS
-  LAUSD-PoC-Main   scottn@logic2020.lausd.hd.poc       00D3h000001SBypEAG  Connected
-  LAUSD-PoC-Main2  snl2dev@lausd.demo                  00D5w000002EaJEEA0  Connected
-  LAUSD-Scott-DEV  scottn@logic2020.rfp.lausd          00D3h000000GHqJEAW  Connected
-  MR-PORTAL        fywdude@yahoo.com                   00D15000000G5DxEAK  Connected
-  TH-ORG01         devcourse@udemy.com                 00D0b000000Qz1YEAS  Connected
-  TH-ORG02         fyw@wave.org                        00D36000000jIQOEA2  Connected
-  TH-ORG03         apex@theitsolutionist.com           00D1U000000rNRSUA2  Connected
-  TH-ORG04         fywdude@cunning-raccoon-368964.com  00D1H000000NSywUAG  Connected
-  TH-ORG05         fywdude@brave-badger-132329.com     00D1I000000mAL9UAM  Connected
-  TH-ORG06         mr.mad@cunning-badger-160931.com    00D1H000000NT08UAG  Connected
-
-**** BEGIN Download and Upload Lifecycle
-sfdx force:mdapi:retrieve -r ../ -p LAUSD_Demo_20200422 -u snl2dev@lausd.demo
-mv ../unpackaged.zip ../LAUSD_Demo_20200422.zip && unzip ../LAUSD_Demo_20200422.zip -d ../
-sfdx force:mdapi:convert -r ../LAUSD_Demo_20200422 -d force-app
-sfdx force:source:deploy -u mr.mad@cunning-badger-160931.com -x ../"LAUSD flow 1"/package.xml
 **** END Download and Upload Lifecycle
 
-sfdx force:auth:web:login --setalias LSMITH_DEV --instanceurl https://cunning-badger-160931-dev-ed.my.salesforce.com/
-
-
-sfdx force:alias:set LAUSD-PoC-Main2=snl2dev@lausd.demo && sfdx force:alias:set LAUSD-PoC-Main=scottn@logic2020.lausd.hd.poc
-
-IF NEW APP MIGRATED MUST ADD USER PROFILES TO APP TO SEE THEM
-
-sfdx force:source:retrieve -m StandardValueSet:CaseType -u scottn@logic2020.rfp.lausd
-
-force:source:retrieve -x knowledge-pkg/package.xml -u dxbase
-
-sfdx force:mdapi:retrieve -r ../ -u scottn@logic2020.rfp.lausd -k manifest/package.xml
-
-###Retrieve with package.xml:
-sfdx force:mdapi:retrieve -r ../ -u scottn@lausd.poc.libbysdev -k package.xml
-
-
-sfdx force:source:retrieve -u scottn@logic2020.rfp.lausd -x manifest/package.xml --verbose
-or 
-sfdx force:source:retrieve -u scottn@logic2020.rfp.lausd -n PACKAGENAMES (A comma-separated list of package names to retrieve.)
-
-sfdx force:mdapi:retrieve -r ../ -p L20Test01 -u scottn@logic2020.rfp.lausd
-
-sfdx force:alias:set dxbase=scottn@lausd.poc.dxbase
-
-sfdx force:mdapi:retrieve -r ../ -u scottn@lausd.poc -k manifests/SandboxAdminEmailPackage.xml
-
-sfdx force:auth:web:login -d -a LE-DevHub
-sfdx force:mdapi:convert -r ../unpackaged -d sandbox-admin-email-with-community
-
-
-sfdx force:auth:web:login --setalias L2-PoC-Prd --instanceurl https://logic2020-fsl-demo.my.salesforce.com
-
-scratch org: 00D1100000C5smxEAB, username: test-2tvgoqoo1tvo@example.com
