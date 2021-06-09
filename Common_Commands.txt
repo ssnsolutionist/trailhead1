@@ -110,6 +110,8 @@ sfdx force:package:create --name [PACKAGE_NAME] --description "[DESCRIPTION]" --
 ***Create Package version (used for distribution)
 sfdx force:package:version:create -p [PACKAGE_NAME] -d force-app -k [INSTALLATIONKEY(password - don't use symbols or put symbols in quotes)] --wait 10
 
+!!!Add --codecoverage next revision!!!
+
 ***Promote to Release verion of package (can install to any org)
 sfdx force:package:version:promote -p [PACKAGE ID or ALIAS]
 
