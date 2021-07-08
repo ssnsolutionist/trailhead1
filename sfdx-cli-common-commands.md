@@ -74,6 +74,9 @@ To deploy your changes back to the org, first make any changes to the package.xm
 Example with our assumptions:  
 >sfdx force:source:deploy -u [USERNAME] -x ../[PROJECT_FOLDER_NAME]/manifest/[PACKAGE_NAME].xml 
 
+In the event this is a Developer org, you will need to treat it like a Production org and include a test level, as in:
+>sfdx force:source:deploy -u [USERNAME] -x ../[PROJECT_FOLDER_NAME]/manifest/[PACKAGE_NAME].xml **-l RunLocalTests -w 100**
+    
 Once work has begun, there are push and pull commands. These will generally work with scratch orgs and rarely with standard sandboxes  
 ### Push from VS Code Project to Org
 >sfdx force:source:push -u [ORG USERNAME FROM THE sfdx force:org:list]
