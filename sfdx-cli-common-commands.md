@@ -57,7 +57,7 @@ After a time you may end up with a bunch of old aliases, which can be annoying. 
 
 Find the json file with the username you want to remove and delete it.
 
-## Moving data in and out of the Org
+## Moving metadata in and out of the Org
 First, some assumptions. The default project layout includes the path /manifest for package manifests and the location where the downloaded data will be is one folder level above the project and the commands are issued from the defalut path when opening a VSS terminal.  
 
 If you need help creating your package, try the [Salesforce package.xml Builder](https://packagebuilder.herokuapp.com/) for a broadly-focused download, or try using the [Download Salesforce Change Set package.xml](https://chrome.google.com/webstore/detail/download-salesforce-chang/olkmefomaellbafiabkljcemiljkkbeh) with a targeted changeset to create your package xml file. Note that is a good practice to name your package xml file based on the features in the package rather than the default of "package.xml"
